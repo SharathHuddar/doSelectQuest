@@ -25,7 +25,11 @@ SECRET_KEY = 'p@gkh4*#(%j4-2oo8y4j9+4agyj0cqyxo*)sf&hl*_9rb$oyj&'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['imageapi.yi57bvhp9d.ap-south-1.elasticbeanstalk.com']
+ALLOWED_HOSTS = [
+    'imageapi.yi57bvhp9d.ap-south-1.elasticbeanstalk.com',
+    '127.0.0.1',
+    'localhost'
+    ]
 
 
 # Application definition

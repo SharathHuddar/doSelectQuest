@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'p@gkh4*#(%j4-2oo8y4j9+4agyj0cqyxo*)sf&hl*_9rb$oyj&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['imageapi.yi57bvhp9d.ap-south-1.elasticbeanstalk.com']
 
 
 # Application definition

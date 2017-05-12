@@ -29,7 +29,7 @@ ALLOWED_HOSTS = [
     'imageapi.yi57bvhp9d.ap-south-1.elasticbeanstalk.com',
     '127.0.0.1',
     'localhost'
-    ]
+]
 
 
 # Application definition
@@ -113,7 +113,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 

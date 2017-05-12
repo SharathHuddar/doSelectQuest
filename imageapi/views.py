@@ -1,8 +1,5 @@
-from django.contrib.auth.models import User
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
-from django.http import HttpResponse
-from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.authentication import TokenAuthentication, SessionAuthentication
 from rest_framework.permissions import IsAuthenticated
@@ -12,10 +9,11 @@ from rest_framework import status
 from imageapi.renderers import ImageRenderer
 import os
 
+
 class ImageList(APIView):
     authentication_classes = (TokenAuthentication, SessionAuthentication)
     permission_classes = (IsAuthenticated,)
-    
+
     def post(self, request):
         if 'myfile' in request.FILES:
             myfile = request.FILES['myfile']
@@ -32,7 +30,7 @@ class ImageList(APIView):
                 "message": "File not found in request"
             }
             return Response(content, status=status.HTTP_400_BAD_REQUEST)
-    
+
     def get(self, request):
         username = request.user.username
         images = os.listdir(os.path.join(settings.MEDIA_ROOT, username))
@@ -43,11 +41,12 @@ class ImageList(APIView):
             })
         return Response(content)
 
+
 class ImageDetail(APIView):
     authentication_classes = (TokenAuthentication, SessionAuthentication)
     permission_classes = (IsAuthenticated,)
     renderer_classes = (ImageRenderer, JSONRenderer, )
-        
+
     def get(self, request, img):
         username = request.user.username
         images = os.listdir(os.path.join(settings.MEDIA_ROOT, username))
@@ -57,7 +56,7 @@ class ImageDetail(APIView):
             return Response(image, content_type="image/png")
         else:
             return Response(status=status.HTTP_404_NOT_FOUND)
-    
+
     def patch(self, request, img):
         username = request.user.username
         images = os.listdir(os.path.join(settings.MEDIA_ROOT, username))
@@ -79,8 +78,7 @@ class ImageDetail(APIView):
                     "message": "File not found in request"
                 }
                 return Response(content, status=status.HTTP_400_BAD_REQUEST)
-                
-            
+
     def delete(self, request, img):
         username = request.user.username
         images = os.listdir(os.path.join(settings.MEDIA_ROOT, username))

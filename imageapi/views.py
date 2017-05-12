@@ -88,3 +88,5 @@ class ImageDetail(APIView):
             path = os.path.join(settings.MEDIA_ROOT, username, img)
             os.remove(path)
             return Response(status=status.HTTP_204_NO_CONTENT)
+        else:
+            return Response(status=status.HTTP_404_NOT_FOUND)

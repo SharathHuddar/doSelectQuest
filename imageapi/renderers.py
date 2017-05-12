@@ -2,8 +2,8 @@ from rest_framework.renderers import BaseRenderer
 
 
 class ImageRenderer(BaseRenderer):
-    media_type = 'image/png'
-    format = 'png'
+    media_type = 'image/*'
+    format = '*'
     charset = None
     render_style = 'binary'
 

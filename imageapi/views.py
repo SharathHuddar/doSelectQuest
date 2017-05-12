@@ -53,7 +53,7 @@ class ImageDetail(APIView):
         if img in images:
             path = os.path.join(settings.MEDIA_ROOT, username, img)
             image = open(path, "rb").read()
-            return Response(image, content_type="image/png")
+            return Response(image, content_type="image/*")
         else:
             return Response(status=status.HTTP_404_NOT_FOUND)
 

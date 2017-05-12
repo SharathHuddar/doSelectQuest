@@ -18,15 +18,21 @@ class ImageList(APIView):
     permission_classes = (IsAuthenticated,)
     
     def post(self, request):
-        myfile = request.FILES['myfile']
-        username = request.user.username
-        location = os.path.join(settings.MEDIA_ROOT, username)
-        fs = FileSystemStorage(location=location)
-        filename = fs.save(myfile.name, myfile)
-        content = {
-            'uploaded_file_name': filename
-        }
-        return Response(content)
+        if 'myfile' in request.FILES:
+            myfile = request.FILES['myfile']
+            username = request.user.username
+            location = os.path.join(settings.MEDIA_ROOT, username)
+            fs = FileSystemStorage(location=location)
+            filename = fs.save(myfile.name, myfile)
+            content = {
+                'uploaded_file_name': filename
+            }
+            return Response(content)
+        else:
+            content = {
+                "message": "File not found in request"
+            }
+            return Response(content, status=status.HTTP_400_BAD_REQUEST)
     
     def get(self, request):
         username = request.user.username
@@ -58,15 +64,22 @@ class ImageDetail(APIView):
         if img in images:
             path = os.path.join(settings.MEDIA_ROOT, username, img)
             os.remove(path)
-            myfile = request.FILES['myfile']
-            location = os.path.join(settings.MEDIA_ROOT, username)
-            fs = FileSystemStorage(location=location)
-            filename = fs.save(img, myfile)
-            content = {
-                'uploaded_file_name': filename
-            }
-            print (content)
-            return Response(content, content_type="application/json")
+            if 'myfile' in request.FILES:
+                myfile = request.FILES['myfile']
+                location = os.path.join(settings.MEDIA_ROOT, username)
+                fs = FileSystemStorage(location=location)
+                filename = fs.save(img, myfile)
+                content = {
+                    'uploaded_file_name': filename
+                }
+                print (content)
+                return Response(content, content_type="application/json")
+            else:
+                content = {
+                    "message": "File not found in request"
+                }
+                return Response(content, status=status.HTTP_400_BAD_REQUEST)
+                
             
     def delete(self, request, img):
         username = request.user.username

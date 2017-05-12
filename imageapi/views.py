@@ -3,7 +3,6 @@ from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 from django.http import HttpResponse
 from rest_framework import generics
-# from imageapi.serializers import  UserSerializer
 from rest_framework.views import APIView
 from rest_framework.authentication import TokenAuthentication, SessionAuthentication
 from rest_framework.permissions import IsAuthenticated
@@ -27,7 +26,7 @@ class ImageList(APIView):
             content = {
                 'uploaded_file_name': filename
             }
-            return Response(content)
+            return Response(content, status=status.HTTP_201_CREATED)
         else:
             content = {
                 "message": "File not found in request"
@@ -56,7 +55,8 @@ class ImageDetail(APIView):
             path = os.path.join(settings.MEDIA_ROOT, username, img)
             image = open(path, "rb").read()
             return Response(image, content_type="image/png")
-        return Response(img)
+        else:
+            return Response(status=status.HTTP_404_NOT_FOUND)
     
     def patch(self, request, img):
         username = request.user.username
